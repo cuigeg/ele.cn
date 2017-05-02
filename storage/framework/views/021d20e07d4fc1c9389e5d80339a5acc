@@ -1,0 +1,61 @@
+﻿    <!DOCTYPE html>
+    <html lang="en">  
+        <head>  
+            <!--网站编码格式，UTF-8 国际编码，GBK或 gb2312 中文编码-->  
+            <meta http-equiv="content-type" content="text/html;charset=utf-8" />  
+            <meta http-equiv="X-UA-Compatible" content="IE=edge">  
+            <meta name="Keywords" content="关键词一，关键词二">  
+            <meta name="Description" content="网站描述内容">  
+            <meta name="Author" content="Yvette Lau">
+            <meta name="csrf-token" content="<?php echo e(csrf_token()); ?>">  
+            <meta name = "viewport" content = " width = device-width, initial-scale = 1 ">  
+            <link href="/admin/dist/css/login.css" rel="stylesheet">
+ 
+        </head>  
+        <body>  
+            <div id="login_dialog">  
+             <?php if(count($errors)>0): ?>
+                <div class='alert alert-danger'>
+                    <ul>
+                        <?php foreach($errors->all() as $v): ?>
+                            <li><?php echo e($v); ?></li>
+                        <?php endforeach; ?>
+                    </ul>
+                </div>
+            <?php endif; ?>
+                <div class="register_dialog_title">  
+                    <p class="register_dialog_info">登录</p>  
+                    <div class="clear"></div>  
+                </div>  
+                <div style="background-color:#ffffff;margin:10px;">  
+                    <form action="/admin/userlogin" method='post'>             
+                        <ul class="reg-box">                   
+                            <li>  
+                                <label for="">账    号</label>
+                                <input type="text" name="phone" value="请输入您的账号" class="account" maxlength="11" style="color:#999;" onBlur="textBlur(this)" onFocus="textFocus(this)"/>
+                                <span class="error error5"></span>  
+                            </li>  
+                            <li>  
+                                <label for="">密    码</label>
+                                <input type="password" name="password" class = "admin_pwd" value="请输入密码" style="color:#999;" onBlur="textBlur(this)" onFocus="textFocus(this)"/>
+                                <span class="error error6"></span>  
+                            </li>  
+                            <li>  
+                                <label for="">验证码</label>
+                                <input type="text" name="code" class="sradd photokey" value="请输入验证码" style="color:#999;ime-mode:disabled;-webkit-ime-mode:inactive;" onBlur="textBlur(this)" onFocus=" textFocus(this) "  />
+                                <span class="add phoKey"></span>
+                                <span class="error error7"></span>  
+                            </li>  
+                        </ul> 
+                        <div class="sub">  
+                            <input type="submit" value="立即登录" />  
+                        </div> 
+                        <?php echo e(csrf_field()); ?>                      
+                    </form>  
+                </div>  
+            </div>  
+           
+        </body>  
+    </html> 
+    <script type="text/javascript" src="/js/jquery-2.2.3.min.js"></script>
+     <script type="text/javascript" src='/js/login.js'></script> 

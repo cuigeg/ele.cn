@@ -1,0 +1,40 @@
+<?php $__env->startSection('title','饿了么注册'); ?>
+<?php $__env->startSection('con'); ?>
+ <div class="login-page about">
+		<img class="login-w3img" src="/images/img3.jpg" alt="">
+		<div class="container"> 
+			<h3 class="w3ls-title w3ls-title1">请注册您的账号</h3>  
+			<div class="login-agileinfo"> 
+				<form action="<?php echo e(url('auth/register')); ?>" method="post"> 
+				<?php echo csrf_field(); ?>
+
+				  <?php if(count($errors) > 0): ?>
+				        <ul>
+				            <?php foreach($errors->all() as $error): ?>
+				                <li><?php echo e($error); ?></li>
+				            <?php endforeach; ?>
+				        </ul>
+				  <?php endif; ?>          
+					<input c lass="agile-ltext" type="text" name="name" placeholder="姓名" required="">
+					<input c lass="agile-ltext" type="email" name="email" placeholder="邮箱" required="">
+					<input c lass="agile-ltext" type="password" name="password" placeholder="密码" required="">
+					<input c lass="agile-ltext" type="password" name="password_confirmation" placeholder="确认密码" required="">
+					<div class="wthreelogin-text"> 
+						<ul> 
+							<li>
+								<label class="checkbox"><input type="checkbox" name="checkbox"><i></i> 
+									<span> 我同意服务条款</span> 
+								</label> 
+							</li> 
+						</ul>
+						<div class="clearfix"> </div>
+					</div>   
+					<input type="submit" value="注 册">
+				</form>
+				<p>已经有账号了?  <a href="login"> 赶快登录吧!</a></p> 
+			</div>	 
+		</div>
+	</div>
+ 
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('home.layout.index', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

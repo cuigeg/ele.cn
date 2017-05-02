@@ -1,0 +1,108 @@
+<?php $__env->startSection('title','饿啦么后台管理'); ?>
+<?php $__env->startSection('tit','饿啦么后台管理系统'); ?>
+<?php $__env->startSection('tits','饿啦么后台管中心'); ?>
+<?php $__env->startSection('con'); ?>
+<div class="row">
+    <div class='col-xs-3'></div>
+    <div class='col-xs-9 '>
+        <div class="panel-body">
+        <?php if(session('success')): ?>
+                <div id='success' class='alert alert-success alert-dismissable'>
+                    <?php echo e(session('success')); ?>               
+                </div>
+             <?php endif; ?>
+            <?php if(session('error')): ?>
+                <div id='success' class='alert alert-success alert-dismissable'>
+                    <?php echo e(session('error')); ?>
+
+                </div>
+             <?php endif; ?>
+            <div class="dataTable_wrapper">
+                <div id="dataTables-example_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
+                    <form action="/adminshop/foodlist" method='get' >
+                    <input type="hidden" name="id" value="<?php echo e(Session::get('foodid')); ?>"> 
+                    <div class="row"><div class="col-sm-6"><div class="dataTables_length" id="dataTables-example_length">
+                        <label>看 <select name="num" aria-controls="dataTables-example" class="form-control input-sm">
+                        <option value="5">5</option>
+                        <option value="10">10</option>
+                        <option value="15">15</option>
+                        <option value="20">20</option>
+                        </select>条</label>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div id="dataTables-example_filter" class="dataTables_filter">
+                        <label>菜名:<input name='keyword' value="<?php echo e(isset($keyword)?$keyword:''); ?>" class="form-control input-sm" placeholder="" aria-controls="dataTables-example" type="search"></label>
+                        <button class="btn btn-primary">
+                            搜索
+                        </button>
+                    </div>
+                </div>
+                </form>
+            </div>
+             <table class="table table-border table-bordered table-bg">
+         <thead>
+            <tr>
+                <th colspan="7" scope="col">信息统计</th>
+            </tr>
+            <tr class="text-c">
+                <th>菜品名称</th>
+                <th>菜品价格</th>
+                <th>菜品销售</th>
+                <th>菜品信息</th>
+                <th>菜品图片</th>
+                <th>所属类别</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php if($res): ?>
+                    <?php foreach($res as $k=>$v): ?>
+                    <tr class="gradeA odd" role="row">
+                            <td class="sorting_1"><?php echo e($v->foodname); ?></td>
+                            <td><?php echo e($v->price); ?></td>
+                            <td><?php echo e($v->count); ?></td>
+                            <td class="center"><?php echo e($v->info); ?></td>
+                            <td class="center"><img src="<?php echo e($v->pic); ?>" height="50px" alt='用户未提交图片'/></td>
+                            <td class="center"><?php echo e($v->title); ?></td>
+                            <td class="center">
+                            <?php if($v->sta==0): ?>
+                                <a href="/adminshop/shopxia?id=<?php echo e($v->id); ?>" >菜品充足</a>
+                            <?php else: ?>
+                                <a href="/adminshop/shopxia?id=<?php echo e($v->id); ?>" >缺货</a>
+                            <?php endif; ?>
+                                <a href='/adminshop/updatefood?id=<?php echo e($v->id); ?>&sid=<?php echo e($v->sid); ?>'>修改</a> 
+                            </td>
+                    </tr>
+                    <?php endforeach; ?>
+                    <?php else: ?>
+                    <tr class="gradeA odd" role="row">
+                        <td class="sorting_1">暂时没有数据</td>
+                    </tr>
+                    <?php endif; ?>
+        </tbody>
+    </table>
+
+    <div class="row">
+        <div class="col-sm-5"></div>
+        <div class="col-sm-4">
+            <?php echo $res->appends($all)->render(); ?>
+
+        </div>
+    </div>
+</div>
+<?php $__env->startSection('js'); ?>
+<script type="text/javascript">
+    $(function(){
+         setTimeout(function(){
+            $('#success').slideUp();
+        },2000)
+    })
+    </script>
+
+<?php $__env->stopSection(); ?>
+<?php $__env->stopSection(); ?>
+
+
+
+<?php echo $__env->make('adminshop.layout.index', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

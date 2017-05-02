@@ -1,0 +1,14 @@
+<?php $__env->startSection('tou','头像修改'); ?>
+<?php $__env->startSection('cc'); ?>
+	<center>
+		<form action="/home/personal/photo" method="post" enctype='multipart/form-data'>
+			<img src="<?php echo e($photo); ?>"  width='300px'>
+			<input type="file" name="pic">
+			<?php echo e(csrf_field()); ?>
+
+			<button>提交</button>
+		</form>
+	</center>
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('/home/person', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
